@@ -69,7 +69,25 @@ const buildNav = () => {
 };
 
 buildNav();
+
 // Add class 'active' to section when near top of viewport
+/**
+ * @description Add class 'active' to section when near top of viewport
+ * @param {IntersectionObserverEntry} entry
+ * @returns {void} void
+ */
+const addActiveClass = (entry) => {
+	const { target, isIntersecting } = entry;
+
+	// Add "active" class when section is intersecting otherwise remove it
+	target.classList.toggle('active', isIntersecting);
+
+	// Get the selected link based on section id
+	const link = document.querySelector(`a[href*=${target.id}]`);
+
+	// Add "active" class to link when section is intersecting otherwise remove it
+	link.classList.toggle('active', isIntersecting);
+};
 
 // Scroll to anchor ID using scrollTO event
 
@@ -84,3 +102,24 @@ buildNav();
 // Scroll to section on link click
 
 // Set sections as active
+/**
+ * @description Set sections as active
+ * @returns {void} void
+ */
+const setActiveSections = () => {
+	// Creating a new IntersectionObserver
+	const observer = new IntersectionObserver(
+		(entries) => {
+			// Loop through each entry and add active class
+			entries.forEach((entry) => {
+				addActiveClass(entry);
+			});
+		},
+		{ threshold: 1 }
+	);
+
+	sections.forEach((element) => {
+		observer.observe(element);
+	});
+};
+setActiveSections();
