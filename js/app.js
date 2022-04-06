@@ -100,6 +100,45 @@ const addActiveClass = (entry) => {
 // Build menu
 
 // Scroll to section on link click
+/**
+ * @description Link click handler
+ * @param {PointerEvent} event
+ * @returns {void} void
+ */
+const linkClickHandler = (event) => {
+	event.preventDefault();
+
+	const link = document.querySelector(event.target.getAttribute('href'));
+
+	link.scrollIntoView({
+		behavior: 'smooth',
+	});
+};
+
+// Scroll smoothly to the appropriate section
+/**
+ * @description Scroll to the appropriate section
+ * @param {string} className
+ * @returns {void} void
+ */
+const scrollToSection = (className) => {
+	try {
+		// Get all links
+		const links = document.querySelectorAll(className);
+
+		if (links.length) {
+			// Loop through the links and add click click event listner
+			for (const link of links) {
+				link.addEventListener('click', linkClickHandler.bind(this));
+			}
+		} else {
+			throw new Error('Please provide a valid class name.');
+		}
+	} catch (error) {
+		console.log(error);
+	}
+};
+scrollToSection('.menu__link');
 
 // Set sections as active
 /**
