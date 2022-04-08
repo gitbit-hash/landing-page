@@ -25,7 +25,7 @@
 const navList = document.getElementById('navbar__list');
 const sections = document.querySelectorAll('section');
 const fragment = document.createDocumentFragment();
-
+const hamburger = document.querySelector('.navbar__icon');
 /**
  * End Global Variables
  * Start Helper Functions
@@ -88,15 +88,32 @@ const addActiveClass = (entry) => {
 	// Add "active" class to link when section is intersecting otherwise remove it
 	link.classList.toggle('active', isIntersecting);
 };
-
-// Scroll to anchor ID using scrollTO event
-
 /**
  * End Main Functions
- * Begin Events
- *
  */
 
+/**
+ * Begin events
+ */
+
+// Toggle hamburger menu
+const mobileMenu = () => {
+	navList.classList.toggle('press');
+};
+hamburger.addEventListener('click', mobileMenu);
+
+// Close the menu after one of the links menu is clicked
+const navLinks = document.querySelectorAll('.menu__link');
+const closeMenu = () => {
+	navList.classList.remove('press');
+};
+
+for (const link of navLinks) {
+	link.addEventListener('click', closeMenu);
+}
+/**
+ * End events
+ */
 // Build menu
 
 // Scroll to section on link click
@@ -154,7 +171,7 @@ const setActiveSections = () => {
 				addActiveClass(entry);
 			});
 		},
-		{ threshold: 1 }
+		{ threshold: 0.5, rootMargin: '0px' }
 	);
 
 	sections.forEach((element) => {

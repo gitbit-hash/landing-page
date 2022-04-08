@@ -21,6 +21,10 @@ body {
 	color: #fff;
 }
 
+li {
+	list-style: none;
+}
+
 /* Typeography General*/
 h1 {
 	font-family: 'Fira Sans', sans-serif;
@@ -65,14 +69,21 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+.navbar__menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 .navbar__menu ul {
-	padding-left: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	margin: 0;
-	text-align: right;
+	padding: 0;
 }
 
-.navbar__menu li {
-	display: inline-block;
+.navbar__menu .navbar__icon {
+	display: none;
 }
 
 .navbar__menu .menu__link {
@@ -121,6 +132,41 @@ section {
 	.landing__container {
 		max-width: 50em;
 		padding: 4em;
+	}
+}
+
+@media only screen and (max-width: 35em) {
+	.navbar__menu .navbar__icon {
+		display: block;
+		color: #666;
+		margin-left: auto;
+		margin-right: 0.25em;
+		margin-top: 0.25em;
+		margin-bottom: 0.25em;
+		font-size: 2em;
+		cursor: pointer;
+		z-index: 100;
+	}
+
+	.navbar__menu ul {
+		position: fixed;
+		left: -100%;
+		top: 0%;
+		flex-direction: column;
+		background: rgba(255, 255, 255);
+		width: 100%;
+		border-radius: 10px;
+		text-align: center;
+		transition: 0.3s;
+		box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+	}
+
+	.navbar__menu ul.press {
+		left: 0%;
+	}
+
+	li {
+		width: 100%;
 	}
 }
 
@@ -206,12 +252,7 @@ section:nth-of-type(3n + 1) .landing__container::after {
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 .active {
-	background: rgb(0, 0, 0);
-	background: linear-gradient(
-		0deg,
-		rgba(0, 0, 0, 0.2) 0%,
-		rgba(0, 0, 0, 0) 100%
-	);
+	background: rgba(99, 130, 115, 0.2);
 }
 
 section.active .landing__container::before {
